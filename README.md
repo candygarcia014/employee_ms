@@ -2,6 +2,8 @@
 ## **Description**
 This app is an employee management system that gives the user the option to add, view and update- departents, employees, and roles. 
 
+The app works within the terminal by asking the user what they want to do and it provides them with an array of options that they can chose from. The user can scroll with the up and down arrow button and make the selection by clicking enter. Once they enter the information that they want to add, view, or update they will hit enter again to commit the changes and return to the main menu. 
+
 ## **Table of Contents**
 [Installation](#Installation)
 <br>
