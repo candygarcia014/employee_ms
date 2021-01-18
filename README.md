@@ -20,7 +20,7 @@ All dependencies are included in the package.json. In your bash/terminal, type  
 + Node index.js
 
 ## **Usage**
-![DEMO]( images/EMS.gif)
+![DEMO]( ./images/EMS.gif)
 
 
 ## **License**
