@@ -140,3 +140,20 @@ function askFirstQuestion() {
             }
         });
 }
+
+//Function for if they want to view a department, role or employee
+function viewOptions(viewAnswer) {
+    let viewType = "";
+    if (viewAnswer === "role") {
+        viewType = `SELECT role.id, role.title, role.salary, department.name AS department, role.department_id AS department_id FROM ${viewAnswer} LEFT JOIN department ON ${viewAnswer}.department_id = department.id`;
+    } else if (viewAnswer === "employee") {
+        viewType = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM ${viewAnswer} LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id`;
+    } else {
+        viewType = 'SELECT * FROM department'
+    }
+    connection.query(viewType, function(err, res) {
+        if (err) throw err;
+        console.table(res)
+        askFirstQuestion();
+    });
+}
