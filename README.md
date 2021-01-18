@@ -1,7 +1,6 @@
-# READSME_Generator
+# Employee Management System
 ## **Description**
-This app allows the user to quickly and easily create a README file by using a command-line application to generate one. This allows the project creator to devote more time to working on the project. 
-
+This app is an employee management system that gives the user the option to add, view and update- departents, employees, and roles. 
 
 ## **Table of Contents**
 [Installation](#Installation)
@@ -18,9 +17,10 @@ This app allows the user to quickly and easily create a README file by using a c
 
 ## **Installation**
 All dependencies are included in the package.json. In your bash/terminal, type  the command "npm i" to install the necessary node modules.
++ Node index.js
 
 ## **Usage**
-![DEMO]( images/README.gif)
+![DEMO]( images/EMS.gif)
 
 
 ## **License**
