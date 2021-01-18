@@ -141,7 +141,7 @@ function askFirstQuestion() {
         });
 }
 
-//Function for if they want to view a department, role or employee
+//Function- view a department, role, & employee
 function viewOptions(viewAnswer) {
     let viewType = "";
     if (viewAnswer === "role") {
