@@ -141,7 +141,7 @@ function askFirstQuestion() {
         });
 }
 
-//Function- view a department, role, & employee
+//Function -view a department, role, & employee
 function viewOptions(viewAnswer) {
     let viewType = "";
     if (viewAnswer === "role") {
@@ -156,4 +156,58 @@ function viewOptions(viewAnswer) {
         console.table(res)
         askFirstQuestion();
     });
+}
+
+
+function viewOptionsTwo(viewAnswer) {
+    let viewType = "";
+    if (viewAnswer === "role") {
+        viewType = `SELECT role.id, role.title, role.salary, department.name AS department, role.department_id AS department_id FROM ${viewAnswer} LEFT JOIN department ON ${viewAnswer}.department_id = department.id`;
+    } else if (viewAnswer === "employee") {
+        viewType = `SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM ${viewAnswer} LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id`;
+    } else {
+        viewType = 'SELECT * FROM department'
+    }
+    connection.query(viewType, function(err, res) {
+        if (err) throw err;
+        console.table(res)
+    });
+}
+
+//Function- ADD department, role or employee
+function addOptions(addAnswer, answer) {
+    let tableAnswers = {}
+    if (addAnswer === "department") {
+        tableAnswers = { name: answer.departmentName };
+    } else if (addAnswer === "role") {
+        tableAnswers = { title: answer.roleTitle, salary: answer.roleSalary, department_id: answer.roleDepartmentID }
+    } else {
+        tableAnswers = { first_name: answer.firstName, last_name: answer.lastName, role_id: answer.employeeRoleID, manager_id: answer.employeeManagerID }
+    }
+    const addType = "INSERT INTO " + addAnswer + " SET ?";
+    connection.query(addType, tableAnswers, function(err, res) {
+        if (err) throw err;
+        console.log(res.affectedRows + " " + addAnswer + "added! \n");
+        viewOptions(addAnswer);
+    });
+}
+
+function updateEmployeeRole(answer) {
+    console.log("Updating the employee's role...\n");
+    connection.query(
+        "UPDATE employee SET ? WHERE ?", [{
+                role_id: answer.updateEmployeeRole
+            },
+            {
+                id: answer.updateEmployeeID
+            }
+        ],
+        function(err, res) {
+            if (err) throw err;
+            console.log(res.affectedRows + " Employee updated!\n");
+            // call- UPDATE employee 
+        }
+    );
+    //Show that the change has been made
+    viewOptions("employee");
 }
